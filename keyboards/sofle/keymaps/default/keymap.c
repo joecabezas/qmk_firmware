@@ -9,6 +9,11 @@ enum sofle_layers {
     _ADJUST,
 };
 
+#define MACRO_1_STRING ""
+#define MACRO_2_STRING ""
+#define MACRO_3_STRING ""
+#define MACRO_4_STRING ""
+
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_COLEMAK,
@@ -19,7 +24,11 @@ enum custom_keycodes {
     KC_NXTWD,
     KC_LSTRT,
     KC_LEND,
-    KC_DLINE
+    KC_DLINE,
+    CUSTOM1,
+    CUSTOM2,
+    CUSTOM3,
+    CUSTOM4
 };
 
 
@@ -92,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______\
 ),
 /* RAISE
- * ,----------------------------------------.                    ,-----------------------------------------.
+ * ,----------------------------------------.                      .----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Esc  | Ins  | Pscr | Menu |      |      |                    |      | PWrd |  Up  | NWrd | DLine| Bspc |
@@ -103,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR |LOWER | /Space  /       \Enter \  |RAISE | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
- *            `----------------------------------'           '------''---------------------------'
+ *             `----------------------------------'           '------''---------------------------'
  */
 [_RAISE] = LAYOUT( \
   _______, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______, \
@@ -113,18 +122,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ \
 ),
 /* ADJUST
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | RESET|      |QWERTY|COLEMAK|      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |MACWIN|      |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
- * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      | PREV | PLAY | NEXT |      |      |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /Space  /       \Enter \  |RAISE | RCTR | RAlt | RGUI |
- *            |      |      |      |      |/       /         \      \ |      |      |      |      |
- *            `----------------------------------'           '------''---------------------------'
+ * .---------------------------------------------.                     .---------------------------------------------.
+ * |       |       |       |       |       |      |                    |CUSTOM1|CUSTOM2|CUSTOM3|CUSTOM4|      |      |
+ * |-------+-------+-------+-------+-------+------|                    |-------+-------+-------+-------+------+------|
+ * | RESET |       |QWERTY |COLEMAK|       |      |                    |       |       |       |       |      |      |
+ * |-------+-------+-------+-------+-------+------|                    |-------+-------+-------+-------+------+------|
+ * |       |       |MACWIN |       |       |      |-------.    ,-------|       | VOLDO | MUTE  | VOLUP |      |      |
+ * |-------+-------+-------+-------+-------+------|  MUTE |    |       |-------+-------+-------+-------+------+------|
+ * |       |       |       |       |       |      |-------|    |-------|       | PREV  | PLAY  | NEXT  |      |      |
+ * `---------------------------------------------/       /      \      \---------------------------------------------'
+ *            | LGUI  | LAlt  | LCTR  |LOWER | /Space  /         \Enter \  |RAISE | RCTR | RAlt | RGUI |
+ *            |       |       |       |      |/       /           \      \ |      |      |      |      |
+ *             `--------------------------------------'            '------''---------------------------'
  */
 [_ADJUST] = LAYOUT( \
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -149,7 +158,7 @@ static void render_logo(void) {
 
 static void print_status_narrow(void) {
     // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_P(PSTR("k014"), false);
     oled_write_ln_P(PSTR("MODE"), false);
     oled_write_ln_P(PSTR(""), false);
     if (keymap_config.swap_lctl_lgui) {
@@ -367,6 +376,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_Z);
             }
             return false;
+	case CUSTOM1:
+	  if (record->event.pressed) {
+	    SEND_STRING(MACRO_1_STRING);
+	  }
+	  return false;
+	  break;
+	case CUSTOM2:
+	  if (record->event.pressed) {
+	    SEND_STRING(MACRO_2_STRING);
+	  }
+	  return false;
+	  break;
+	case CUSTOM3:
+	  if (record->event.pressed) {
+	    SEND_STRING(MACRO_3_STRING);
+	  }
+	  return false;
+	  break;
+	case CUSTOM4:
+	  if (record->event.pressed) {
+	    SEND_STRING(MACRO_4_STRING);
+	  }
+	  return false;
+	  break;
     }
     return true;
 }
