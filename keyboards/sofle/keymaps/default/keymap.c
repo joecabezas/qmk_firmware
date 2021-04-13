@@ -14,6 +14,19 @@ enum sofle_layers {
 #define MACRO_3_STRING ""
 #define MACRO_4_STRING ""
 
+#define EMOJI1_STRING "(. ❛ ᴗ ❛.)"
+#define EMOJI2_STRING ""
+#define EMOJI3_STRING ""
+#define EMOJI4_STRING ""
+#define EMOJI5_STRING ""
+#define EMOJI6_STRING ""
+#define EMOJI7_STRING ""
+#define EMOJI8_STRING ""
+#define EMOJI9_STRING ""
+#define EMOJI10_STRING ""
+#define EMOJI11_STRING ""
+#define EMOJI12_STRING ""
+
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_COLEMAK,
@@ -25,10 +38,24 @@ enum custom_keycodes {
     KC_LSTRT,
     KC_LEND,
     KC_DLINE,
-    CUSTOM1,
-    CUSTOM2,
-    CUSTOM3,
-    CUSTOM4
+
+    MACRO1,
+    MACRO2,
+    MACRO3,
+    MACRO4,
+
+    EMOJI1,
+    EMOJI2,
+    EMOJI3,
+    EMOJI4,
+    EMOJI5,
+    EMOJI6,
+    EMOJI7,
+    EMOJI8,
+    EMOJI9,
+    EMOJI10,
+    EMOJI11,
+    EMOJI12,
 };
 
 
@@ -118,24 +145,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ \
 ),
 /* ADJUST
- * .---------------------------------------------.                     .---------------------------------------------.
- * |       |       |       |       |       |      |                    |CUSTOM1|CUSTOM2|CUSTOM3|CUSTOM4|      |      |
- * |-------+-------+-------+-------+-------+------|                    |-------+-------+-------+-------+------+------|
- * | RESET |       |QWERTY |COLEMAK|       |      |                    |       |       |       |       |      |      |
- * |-------+-------+-------+-------+-------+------|                    |-------+-------+-------+-------+------+------|
- * |       |       |MACWIN |       |       |      |-------.    ,-------|       | VOLDO | MUTE  | VOLUP |      |      |
- * |-------+-------+-------+-------+-------+------|  MUTE |    |       |-------+-------+-------+-------+------+------|
- * |       |       |       |       |       |      |-------|    |-------|       | PREV  | PLAY  | NEXT  |      |      |
+ * .-----------------------------------------------.                    .---------------------------------------------.
+ * |EMOJI1 |EMOJI2 |EMOJI3 |EMOJI4 |EMOJI5 |EMOJI6 |                    |MACRO1 |MACRO2 |MACRO3 |MACRO4 |      |      |
+ * |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+------+------|
+ * | RESET |       |QWERTY |COLEMAK|       |       |                    |       |       |       |       |      |      |
+ * |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+------+------|
+ * |       |       |MACWIN |       |       |       |-------.    ,-------|       | VOLDO | MUTE  | VOLUP |      |      |
+ * |-------+-------+-------+-------+-------+-------|  MUTE |    |       |-------+-------+-------+-------+------+------|
+ * |       |       |       |       |       |       |-------|    |-------|       | PREV  | PLAY  | NEXT  |      |      |
  * `---------------------------------------------/       /      \      \---------------------------------------------'
  *            |       |       |       |      | /       /         \      \  |      |      |      |      |
  *             `--------------------------------------'            '------''---------------------------'
  */
 [_ADJUST] = LAYOUT( \
-  XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     CUSTOM1, CUSTOM2, CUSTOM3, CUSTOM4, XXXXXXX, XXXXXXX, \
-  RESET  , XXXXXXX,KC_QWERTY,KC_COLEMAK,CG_TOGG,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
-  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, \
-                   _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
+  EMOJI1,  EMOJI2,  EMOJI3,  EMOJI4,    EMOJI5,     EMOJI6,                        MACRO1,  MACRO2,  MACRO3,  MACRO4,  XXXXXXX, XXXXXXX, \
+  EMOJI8,  EMOJI8,  EMOJI9,  EMOJI10,   EMOJI11,    EMOJI12,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  RESET,   XXXXXXX, XXXXXXX, KC_QWERTY, KC_COLEMAK, CG_TOGG,                       XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, \
+                         _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
 )
 };
 
@@ -371,27 +398,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_Z);
             }
             return false;
-	case CUSTOM1:
+	case MACRO1:
 	  if (record->event.pressed) {
 	    SEND_STRING(MACRO_1_STRING);
 	  }
 	  return false;
 	  break;
-	case CUSTOM2:
+	case MACRO2:
 	  if (record->event.pressed) {
 	    SEND_STRING(MACRO_2_STRING);
 	  }
 	  return false;
 	  break;
-	case CUSTOM3:
+	case MACRO3:
 	  if (record->event.pressed) {
 	    SEND_STRING(MACRO_3_STRING);
 	  }
 	  return false;
 	  break;
-	case CUSTOM4:
+	case MACRO4:
 	  if (record->event.pressed) {
 	    SEND_STRING(MACRO_4_STRING);
+	  }
+	  return false;
+	  break;
+	case EMOJI1:
+	  if (record->event.pressed) {
+	    send_unicode_string(EMOJI1_STRING);
+	  }
+	  return false;
+	  break;
+	case EMOJI2:
+	  if (record->event.pressed) {
+	    send_unicode_string(EMOJI2_STRING);
 	  }
 	  return false;
 	  break;
